@@ -1,0 +1,19 @@
+<% layout('layouts/boilerplate') %>
+<body>
+    <h3>Listing Detail</h3>
+    <ul>
+        <li>Title: <%= listing.title %></li>
+        <li>Location: <%= listing.location %></li>
+        <li> Price: ₹<%=   listing.price%></li>
+        <li>Description:<%= listing.description %></li>
+        <li>country: <%= listing.country %></li>
+    </ul>
+    <br>
+    <a href="/listings/<%= listing._id %>/edit">Edit This Listing</a>
+    <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
+        <button>
+            Delete This Listing
+
+        </button>
+    </form>
+</body>

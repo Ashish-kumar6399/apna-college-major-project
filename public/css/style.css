@@ -1,0 +1,22 @@
+body{
+    background-color: brown;
+}
+
+
+.navbar{
+    height: 5rem;
+}
+
+.fa-compass{
+    color: tomato;
+    font-size: 2rem;
+}
+
+.nav-link{
+    color: black !important;
+}
+
+.f-info-links a{
+    text-decoration: none;
+    color: black;
+}

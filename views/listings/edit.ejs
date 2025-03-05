@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h3 {
+            color: #333;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Edit Listings</h3>
+        <form method="post" action="/listings/<%= listing._id %>?_method=PUT">
+            <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" required>
+            <input type="number" name="listing[price]" id="price" value="<%= listing.price %>" required>
+            <input type="text" name="listing[location]" id="location" value="<%= listing.location %>" required>
+            <input type="text" name="listing[country]" id="country" value="<%= listing.country %>" required>
+            <textarea name="listing[description]" id="description" required><%= listing.description %></textarea>
+            <button type="submit">Edit Listing</button>
+        </form>
+    </div>
+
+</body>
+</html>
