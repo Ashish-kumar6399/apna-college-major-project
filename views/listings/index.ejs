@@ -12,7 +12,7 @@
       <% for (let listing of allListings) { %>
         <a class="text-decoration-none" href="/listings/<%=listing._id%>">
         <div class="card col border-0 mb-2" style="width: 20rem;">
-          <img class="rounded" src="<%= listing.image%> " class="card-img-top" alt="...">
+          <img   src="<%= listing.image.url%>  " class="card-img-top rounded "  style="height: 20rem";   >
           <div class="card-body">
             <p class="card-text "><b><%= listing.title %> </b><br>
               ₹ <%= listing.price%>/Night
@@ -28,12 +28,5 @@
 
 
 
-    <ul>
-      <% for (let listing of allListings) { %>
-
-      <li>
-        <a href="/listings/ <%= listing._id %>"> <%= listing.title %> </a>
-      </li>
-      <% } %>
-    </ul>
+    
   </body>

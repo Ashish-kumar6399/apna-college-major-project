@@ -2,19 +2,25 @@ const mongoose = require('mongoose');
 const initData = require('./data');
 const Listing = require('../models/listing.js');
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = "mongodb+srv://ashishkumar541712:3gFIXd3wnzxIBzdJ@cluster0.0vis0.mongodb.net/wandrlust?retryWrites=true&w=majority&appName=Cluster0";
 
 
 main()
-    .then( () => {
+    .then(() => {
         console.log("Connected to the db server");
     })
-     .catch((err)=>{
+    .catch((err) => {
         console.log(err);
-     });
+    });
 
-async function main(){
-    await mongoose.connect(MONGO_URL);
+async function main() {
+    await mongoose.connect(MONGO_URL)
+        .then(() => {
+            console.log("db connection suckseed.")
+        })
+        .catch(e => {
+            console.log("failed to connnect." + e)
+        });
 }
 
 

@@ -2,33 +2,35 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const Listing = require('./models/listing');
-const path =require('path');
+const path = require('path');
 const methodOverride = require('method-override');
 const { log } = require('console');
 app.use(methodOverride('_method'));
-const ejsMate =require('ejs-mate');
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
- const ExpressError = require("./utils/ExpressError.js")
- const  wrapAsync = require("./utils/wrapAsync.js")
- const {listingSchema} =require("./schema.js");
+const ejsMate = require('ejs-mate');
+
+const MONGO_URL = "mongodb+srv://ashishkumar541712:3gFIXd3wnzxIBzdJ@cluster0.0vis0.mongodb.net/wandrlust?retryWrites=true&w=majority&appName=Cluster0";
+
+const ExpressError = require("./utils/ExpressError.js")
+const wrapAsync = require("./utils/wrapAsync.js")
+const { listingSchema } = require("./schema.js");
 
 main()
-    .then( () => {
+    .then(() => {
         console.log("Connected to the db server");
     })
-     .catch((err)=>{
+    .catch((err) => {
         console.log(err);
-     });
+    });
 
-async function main(){
+async function main() {
     await mongoose.connect(MONGO_URL);
 }
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use (express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.engine('ejs', ejsMate);
-app.use(express.static(path.join(__dirname,"/public")));
+app.use(express.static(path.join(__dirname, "/public")));
 
 // app.get("/testListing", async(req, res) => {
 //     let sampleListing = new Listing ({
@@ -43,7 +45,7 @@ app.use(express.static(path.join(__dirname,"/public")));
 //     res.send("Listing created");
 // });
 
-app.get("/", function(req, res){
+app.get("/", function (req, res) {
     res.send("hi i am roott");
 });
 
@@ -57,31 +59,32 @@ const validateListing = (req, res, next) => {
     }
 };
 
-app.get("/listings", async( req, res) => {
-   const allListings =  await Listing.find({});
-   res.render("listings/index.ejs",{allListings});
+app.get("/listings", async (req, res) => {
+    const allListings = await Listing.find({});
+    res.render("listings/index.ejs", { allListings });
 });
 
 
 // New Route
-app.get("/listings/new", function(req, res){
+app.get("/listings/new", function (req, res) {
     res.render("listings/new.ejs");
 });
 
 // show Route
-    
-app.get("/listings/:id", async(req, res) => {
-    let {id} =req.params;
+
+app.get("/listings/:id", async (req, res) => {
+    let { id } = req.params;
     id = id.trim(); // Trim any leading or trailing whitespace
-     const listing = await Listing.findById(id);
-    res.render("listings/show.ejs", {listing});
+    const listing = await Listing.findById(id);
+    res.render("listings/show.ejs", { listing });
 });
 
 
 // Create Route
-app.post("/listings",validateListing,wrapAsync, (async(req, res,next) => {
-     const newListing =new Listing(req.body.listing);
-     await newListing.save();
+app.post("/listings", validateListing, wrapAsync(async (req, res) => {
+    const newListing = new Listing(req.body.listing);
+    console.log(newListing)
+    await newListing.save();
     res.redirect("/listings");
 })
 );
@@ -92,17 +95,17 @@ app.post("/listings",validateListing,wrapAsync, (async(req, res,next) => {
 app.get("/listings/:id/edit", async (req, res) => {
     let { id } = req.params;
     id = id.trim(); // Trim any leading or trailing whitespace
-        const listing = await Listing.findById(id);
-        
-        res.render("listings/edit.ejs", { listing });
-    } 
+    const listing = await Listing.findById(id);
+
+    res.render("listings/edit.ejs", { listing });
+}
 );
 
 // Update Route
 app.put("/listings/:id", validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
     id = id.trim(); // Trim any leading or trailing whitespace
-    const listing = await Listing.findByIdAndUpdate(id, {...req.body.listing} );
+    const listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
 })
 );
@@ -111,23 +114,27 @@ app.put("/listings/:id", validateListing, wrapAsync(async (req, res) => {
 app.delete('/listings/:id', async (req, res) => {
     let { id } = req.params;
     id = id.trim(); // Trim any leading or trailing whitespace
-   let deletdListing =  await Listing.findByIdAndDelete(id);
+    let deletdListing = await Listing.findByIdAndDelete(id);
     console.log(deletdListing);
     res.redirect('/listings');
 });
 
+app.get('/db', async (req, res) => {
+    console.log("db")
+    res.json({ msg: "hello" })
+})
 
-app.all("*",(req,res,next)=>{
-    next(new ExpressError( 404, "page not found"));
+app.all("*", (req, res, next) => {
+    next(new ExpressError(404, "page not found"));
 });
 
 app.use((err, req, res, next) => {
-   let {statuscode = 500,message="something went wromg"} = err;
-   res.render("error.ejs",{message: err.message,err})
+    let { statuscode = 500, message = "something went wromg" } = err;
+    res.render("error.ejs", { message: err.message, err })
 });
 
 
 
-app.listen( 8080, () => {
+app.listen(8080, () => {
     console.log('Server is running on port 8080');
 });
