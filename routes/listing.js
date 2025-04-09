@@ -36,6 +36,10 @@ router.get("/:id", async (req, res) => {
     let { id } = req.params;
     id = id.trim(); // Trim any leading or trailing whitespace
     const listing = await Listing.findById(id).populate("reviews");
+    if(!listing){
+        req.flash("error","listing you are requested is not exist");
+        res.redirect("/listings");
+    }
     res.render("listings/show.ejs", { listing });
 });
 
@@ -45,6 +49,7 @@ router.post("/", validateListing, wrapAsync(async (req, res) => {
     const newListing = new Listing(req.body.listing);
     console.log(newListing)
     await newListing.save();
+    req.flash("success", "New listing created successfully!");
     res.redirect("/listings");
 })
 );
@@ -56,7 +61,10 @@ router.get("/:id/edit", async (req, res) => {
     let { id } = req.params;
     id = id.trim(); // Trim any leading or trailing whitespace
     const listing = await Listing.findById(id);
-
+    if(!listing){
+        req.flash("error","listing you are requested is not exist");
+        res.redirect("/listings");
+    }
     res.render("listings/edit.ejs", { listing });
 }
 );
@@ -66,6 +74,7 @@ router.put("/:id", validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
     id = id.trim(); // Trim any leading or trailing whitespace
     const listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    req.flash("success", "Listing updated successfully!");
     res.redirect(`/listings/${id}`);
 })
 );
@@ -76,6 +85,7 @@ router.delete('/:id', async (req, res) => {
     id = id.trim(); // Trim any leading or trailing whitespace
     let deletdListing = await Listing.findByIdAndDelete(id);
     console.log(deletdListing);
+    req.flash("success", "Listing deleted successfully!");
     res.redirect('/listings');
 });
 
