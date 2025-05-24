@@ -57,9 +57,11 @@
 
     <div class="container">
         <h3>Create New Listing</h3>
-        <form class="needs-validation" novalidate method="post" action="/listings">
+        <form class="needs-validation" novalidate method="post" action="/listings" enctype="multipart/form-data">
             <input type="text" name="listing[title]" id="title" placeholder="Enter title" required>
             <input type="number" name="listing[price]" id="price" placeholder="Enter price" required>
+            <label class="text-start  align-items:text-start" for="image">Upload Image</label>
+            <input type="file" name="listing[image]" id="image" class="form-control" required>
             <input type="text" name="listing[location]" id="location" placeholder="Enter location" required>
             <input type="text" name="listing[country]" id="country" placeholder="Enter country" required>
             <textarea placeholder="Enter description" name="listing[description]" id="description" required></textarea>

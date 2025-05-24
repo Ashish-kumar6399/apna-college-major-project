@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review");
+const { urlencoded } = require("express");
 
 const listingSchema = new Schema({
   title: {
@@ -8,14 +9,8 @@ const listingSchema = new Schema({
     required: true,
   },
   image: {
-    filename: {
-      type: String,
-      default: "default.jpg",
-    },
-    url: {
-      type: String,
-      default: "https://th.bing.com/th/id/OIP.YN1AZakZogz4zri3hVJXHAHaEK?rs=1&pid=ImgDetMain",
-    },
+    url: String,
+    filename: String
   },
   description: String,
   price: {
