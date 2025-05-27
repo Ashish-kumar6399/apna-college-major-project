@@ -52,8 +52,20 @@ module.exports.updateListing = async (req, res) => {
     
     let { id } = req.params; // ✅ FIXED
 
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-    req.flash("success", "Listing updated successfully!");
+   let listing =  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    
+   if(typeof req.file !== 'undefined' && req.file !== null) {
+    // If a new file is uploaded, update the image field
+    // Assuming req.file contains the uploaded file information
+    // and listing.image is an object with url and filename properties
+    id = id.trim(); // Trim any leading or trailing whitespace
+   
+   let url = req.file.path;
+    let filename = req.file.filename;
+    listing.image = { url, filename }; 
+    await listing.save();
+    }
+   req.flash("success", "Listing updated successfully!");
     return res.redirect(`/listings/${id}`);
 }
 

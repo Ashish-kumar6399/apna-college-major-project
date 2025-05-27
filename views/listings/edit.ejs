@@ -54,11 +54,17 @@
 
     <div class="container">
         <h3>Edit Listings</h3>
-        <form method="post" action="/listings/<%= listing._id %>?_method=PUT">
+        <form method="post" action="/listings/<%= listing._id %>?_method=PUT" enctype="multipart/form-data">
             <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" required>
             <input type="number" name="listing[price]" id="price" value="<%= listing.price %>" required>
             <input type="text" name="listing[location]" id="location" value="<%= listing.location %>" required>
             <input type="text" name="listing[country]" id="country" value="<%= listing.country %>" required>
+            <div>
+                <h4>Current Image</h4>
+                <img src="<%= originalImageUrl %>" alt="Listing Image" style="max-width: 100%; height: auto; border-radius: 5px;">
+            </div>
+            <label for="image">Upload Image</label>
+            <input  name="listing[image]"  type="file" id="image" class="form-control" >
             <textarea name="listing[description]" id="description" required><%= listing.description %></textarea>
             <button type="submit">Edit Listing</button>
         </form>

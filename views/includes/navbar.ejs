@@ -1,20 +1,19 @@
 <nav class="navbar navbar-expand-md bg-white shadow-sm sticky-top"> 
   <div class="container-fluid">
-      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i> Wanderlust</a>
+      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i> EXPLORE</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto">
-              <a class="nav-link active" aria-current="page" href="/listings">Home</a>
-              <a class="nav-link" href="/listings">Listings</a>
-              <a class="nav-link" href="/listings/new">New Listing</a>
+              <!-- <a class="nav-link active" aria-current="page" href="/listings">Home</a> -->
           </div>
 
           <div class="navbar-nav ms-auto ms-auto">
+                          <a class="nav-link" href="/listings/new">New Listing</a>
             <% if(!currUser){ %>
-            <a class="nav-link active" aria-current="page" href="/signup">signup</a>
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link active fw-bold" aria-current="page" href="/signup">signup</a>
+            <a class="nav-link fw-bold" href="/login">Login</a>
         <% } %> <% if( currUser) { %>
             <a class="nav-link" href="/logout">Logout</a>
         <% } %>
