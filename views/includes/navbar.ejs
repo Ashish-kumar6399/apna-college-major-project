@@ -1,6 +1,25 @@
+<style>
+    .btn-search{
+        background-color: #f32a36;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+</style>
+
+
 <nav class="navbar navbar-expand-md bg-white shadow-sm sticky-top"> 
   <div class="container-fluid">
-      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i> EXPLORE</a>
+      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass" style="color: #f32a36
+; "></i> &nbsp; EXPLORE</a>
+
+    <form class="d-flex navbar-nav " style="margin-left: 25rem;" role="search">
+        <input class="form-control me-2 px-5" type="search" placeholder="Search Destinations" aria-label="Search"/>
+        <button class="btn btn-search rounded-pill px-5" type="submit">Search</button>
+      </form>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>

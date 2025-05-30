@@ -8,6 +8,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     
    
   }
@@ -28,18 +29,33 @@
     opacity: 1;
     cursor: pointer;
   }
+
+  .tax-info{
+    display: none;
+  }
+
+  .tax-toggle{
+   border: 1px solid black;
+  border-radius: 1rem;
+  padding: 1rem;
+  height: 3.5rem;
+  margin-left: 5rem;
+  display: flex;
+  align-items: center;
+margin-top: 1.5rem;  
+}
     
  </style>
  <body class="">
-   <h1>All Listings</h1>
-   <form method="GET" action="/listings/new">
+   <!-- <h1>All Listings</h1> -->
+   <!-- <form method="GET" action="/listings/new">
      <button type="submit" style="margin: 1%;">Add New  Listings</button>
-   </form>
+   </form> -->
 
    <div class="d-flex">
    <div id="filters">
     <div class="filter">
-     <div><i class="fa-solid fa-fire"></i></div> 
+     <div><i class="fa-solid fa-fire"  ></i></div> 
      <p>Trending</p> 
     </div>
    </div>
@@ -97,10 +113,28 @@
 
     <div id="filter">
     <div class="filter">
-     <div><i class="fa-regular fa-snow-lake"></i></div> 
-     <p>Arctic</p> 
+     <div><i class="fa-solid fa-ship"></i></div> 
+     <p>Ships</p> 
     </div>
     </div>
+
+    <div id="filter">
+    <div class="filter">
+     <div><i class="fa-solid fa-igloo"></i></div> 
+     <p>Domes</p> 
+    </div>
+    </div>
+
+    
+
+
+
+    <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+  <label class="form-check-label" for="switchCheckDefault">Display after total taxes</label>
+</div>
+</div>
 
     </div>
     
@@ -113,6 +147,7 @@
          <div class="card-body">
            <p class="card-text "><b><%= listing.title %> </b><br>
              ₹ <%= listing.price%>/Night
+             <i class="tax-info">&nbsp; &nbsp; +18% GST</i>
            </p>
          </div>
        </div>
@@ -121,6 +156,24 @@
 
    </div>
 
+
+
+   <script>
+    let taxswitch = document.getElementById('switchCheckDefault');
+   taxswitch.addEventListener("click",() =>{
+    let taxinfo =document.querySelectorAll('.tax-info');
+    taxinfo.forEach((el) => {
+      if(taxswitch.checked){
+        el.style.display = 'inline';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+   
+   })
+
+  
+   </script>
   
 
 
